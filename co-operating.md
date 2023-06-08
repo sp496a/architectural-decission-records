@@ -13,3 +13,33 @@ I will explain the thought process of reactive in our applcaition later.
 Controller class we have to make sure that we use Immutable objects . We should always make attributes `private final productIntegration `
 use lombok @requiredArgument(onConstruct_=@Autowired)
 
+ /**
+     * Spring's managed component to implement all core services
+     * Product , Review and Recommend API
+     */
+    private final ProductCompositeIntegration integration;
+    
+public enum CancellationTerm{
+@JsonProperty("immidiate")
+IMMIDIATE("immidiate"),
+@JsonProperty("endOfTerm")
+  END_OF_TERM("endOfTerm");
+ private final String term;
+
+  CancellationTerm(String term) {
+    this.term = term;
+  }
+
+  @JsonValue
+  public String getValue() {
+    return term;
+  }
+ @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+  public static CancellationTerm fromValue(String value) {
+    return Arrays.stream(values())
+        .filter(v -> v.getValue().equalsIgnoreCase(value))
+        .findAny()
+        .orElseThrow(() -> new IllegalArgumentException("Invalid cancellation term: " + value));
+  }
+}
+
