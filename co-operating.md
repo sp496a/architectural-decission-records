@@ -19,7 +19,7 @@ use lombok @requiredArgument(onConstruct_=@Autowired)
      */
     private final ProductCompositeIntegration integration;
     
-`public enum CancellationTerm{
+`   public enum CancellationTerm{
 @JsonProperty("immidiate")
 IMMIDIATE("immidiate"),
 @JsonProperty("endOfTerm")
@@ -41,5 +41,5 @@ IMMIDIATE("immidiate"),
         .findAny()
         .orElseThrow(() -> new IllegalArgumentException("Invalid cancellation term: " + value));
   }
-}`
+} `
 
